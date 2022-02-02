@@ -1,0 +1,75 @@
+import discord 
+from discord import commands
+import youtube_dl 
+
+class music(commands.Cog):
+    def _init_(self., client):
+        self.client = client
+        
+    @commands.command()
+    async def join(self,ctx):
+        if ctx.author.voice is None:
+            await ctx.send("You're not in a voice channel!")
+            voice_channel = ctx.authon.voice.channel
+            if ctx.voice_clinet is None:
+                await voice_channel.connect()
+            else:
+                await ctx.voice_channel.move_to(voice_channel)
+                
+    @commands.command()
+    async def disconnect(self,ctx):
+        await ctx.voice_client.disconnect()
+        
+    @commands.command()
+    async def play(self,ctx,url):
+        await ctx.voice_clent.stop()
+        FFMPEG_OPTION = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_deplay_max 5', 'options': '-vn'}
+        YDL_OPTIONS = {'format':"bestaudio"}
+        vc = ctx.voice_client
+        
+        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+            info = ydl.extract_info(url, download=False)
+            url2 = info['formats'] [0] ['url']
+            source = await discord.FFmpeg0pusAudio.from_probe(url2,**FFMPEG_OPTION)
+            vc.play(source)
+            
+    @commands.command()
+    async def pause(self,ctx):
+        await ctx.voice_client.pause()
+        await ctx.send("Paused")
+                
+    @commands.command()
+    async def resume(self,ctx):
+        await ctx.voice_client.resume()
+        await ctx.send("Resume")
+                
+            
+def setup(client):
+    client.add_cog(music(client))
+                
+                            
+
+
+**main**
+
+import discord
+from discord import commands
+import music
+
+cogs = [music]
+
+client = commands.Bot(command_prefix='-', intents = discord.Intens.all())
+
+for i in range(len(cogs)):
+    cogs[i].setup(client)
+     
+client.run('OTMzOTM5OTIzMjYwNjcwMDMy.Yeo1VQ.R-qgApV6-WRG4kGecMWd1fYdIzI')
+
+**chat**
+
+client.on('messageCreate', msg=>{
+    let chats = ['ว่าไงง','เรียกเพื่อนมาด้วย','กินข้าก่อนน้าา','อาบน้ำแปป','ห้ะ','มีใยหย๋อ>_<']
+    if (msg.content == '@Peetikorn'){
+        msg.reply(chats[random_num()])
+    }
+})
